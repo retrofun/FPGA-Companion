@@ -3,16 +3,13 @@
 The is the variant of the MiSTeryNano FPGA companion firmware
 for the BL616 MCU (M0S Dock).
 
-> [!IMPORTANT]
-> * Updated SDK have to be installed!  
-
 ## Example wiring M0S Dock
 
 ![Tang Nano 20k with M0S Dock](m0s_dock_tn20k.png)  
 
 ## Tang integrated onboard BL616 MPU
 
-JTAG signals and UART RX are re-purposed as SPI interface. MPU is Master and FPGA is slave. UART RX GPIO is board specific and used as an SPI interrupt input. The UART TX GPIO is a board-specific signal used to control the FPGA’s dedicated JTAG hw pins and determine whether the interface operates in native JTAG or SPI mode. Nano 20k always stays in JTAG active enabled mode as both JTAG and SPI are as dedicated hw pins available.
+JTAG signals, UART RX and TX are re-purposed as SPI and control interface. MPU is Master and FPGA is slave. UART RX GPIO is board specific and used as an SPI interrupt input. The UART TX GPIO is a board-specific signal used to control the FPGA’s dedicated JTAG hw pins and determine whether the interface operates in native JTAG or SPI mode. Nano 20k always stays in JTAG active enabled mode as both JTAG and SPI are as dedicated hw pins available.
 
 |Tang Board wiring BL616|BL616 GPIO|SPI re-use|Note|
 |------------- |----- |--------  |-----|
@@ -22,13 +19,15 @@ JTAG signals and UART RX are re-purposed as SPI interface. MPU is Master and FPG
 |JTAG TDI      |GPIO3 |SPI MOSI  |  |
 |BL616 UART RX |GPIO x|SPI _IRQ  |  |
 |BL616 UART TX |GPIO x|V_JTAGSELN| 1=JTAG, 0=SPI |
-|BL616 TWI SCL*|GPIO x|UART TX   | debug console |
+|BL616 TWI SCL[^1] |GPIO x|UART TX   | debug console |
 
-The extra TWI SCL connection is only available for Mega60k, Console60k/138k, Mega138kPro.  
-Primer25K re-use after a needed HW modification a default LED IO to access debug console.  
-TN20k has a differnt pin mapping and uses GPIO16, GPIO10, GPIO14, GPIO12 for JTAG.
+[^1]: The extra TWI SCL connection is only available for Console60k/138k and Mega138k Pro.  
+Nano20k uses default BL616 UART TX for the debug console as no V_JTAGSELN needed.  
+TN20k has a differnt pin mapping and uses GPIO16, GPIO10, GPIO14, GPIO12 for JTAG.  
 
-[Windows 11 Build AiO](#tang-onboard-bl616)
+Primer25K re-use after a needed HW modification by removing capacitor C22 the GPIO12 available at button S3 to access debug console. Mega 60k could likely re-use GPIO 16 or GPIO 17 to output debug data.  
+
+[All in One Build](#tang-onboard-bl616)
 
 ## Compiling and uploading code for the BL616 (Linux)
 
@@ -198,10 +197,12 @@ make TANG_BOARD=console60k
 
 ## tang onboard bl616
 
-A build script creates for the several setups specific binaries and .ini files including the needed ``bl616_fpga_partner_`` firmware. The ``buildall`` folder will contain all needed files for a release. So far Nano20k, Console60k, Console138k, Primer25k, Mega138k Pro, Mega NEO Dock 60k apart from M0S Dock are supported. Primer20k and TN9k are excluded as their BL702 doesn't support required USB host mode.
+A build script creates for the several setups specific binaries and .ini files including the needed ``bl616_fpga_partner_`` firmware. The ``buildall`` folder will contain all needed files for a release. So far Nano20k, Console60k, Console138k, Primer25k, Mega138k Pro, Mega NEO Dock 60k apart from M0S Dock are supported.  
+Primer20k and TN9k are excluded as their BL702 doesn't support required USB host mode.
 
 ```shell
 buildall.bat
+buildall.sh
 ```
 
 ### Flashing the firmware M0S Dock

@@ -16,8 +16,9 @@ used by the [NanoMig](https://github.com/MiSTle-Dev/nanomig),
 the [NanoMac](https://github.com/MiSTle-Dev/nanomac), the
 [C64Nano](https://github.com/MiSTle-Dev/C64Nano), the
 [VIC20Nano](https://github.com/MiSTle-Dev/VIC20Nano), the
-[A2600Nano](https://github.com/MiSTle-Dev/A2600Nano) and the 
-[NanoApple2](https://github.com/MiSTle-Dev/NanoApple2).
+[A2600Nano](https://github.com/MiSTle-Dev/A2600Nano), the
+[NanoApple2](https://github.com/MiSTle-Dev/NanoApple2) and the 
+[C16Nano](https://github.com/MiSTle-Dev/C16Nano).
 
 ## Supported MCUs
 
@@ -85,3 +86,4 @@ You might also want to check out the following related projects:
   - [VIC20 Nano](https://github.com/MiSTle-Dev/VIC20Nano) HDL implementation of the Commodore VIC20 home computer
   - [A2600 Nano](https://github.com/MiSTle-Dev/A2600Nano) HDL implementation of the Atari 2600 game console
   - [NanoApple2](https://github.com/MiSTle-Dev/NanoApple2) HDL implementation of the Apple IIe home computer
+  - [C16Nano](https://github.com/MiSTle-Dev/C16Nano) HDL implementationm of the Commodore C16 Plus/4 home computer
